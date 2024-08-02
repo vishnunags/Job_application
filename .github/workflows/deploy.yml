@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Ensure local directory exists
-        run: mkdir -p Job-application/Job_application_frontend
+        run: mkdir -p job-application/Job_application_frontend
 
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.5.3
@@ -26,12 +26,12 @@ jobs:
 
       - name: Pull latest changes from master
         run: |
-          ssh -o StrictHostKeyChecking=no ec2-user@ec2-34-205-29-69.compute-1.amazonaws.com 'cd /home/Job-application/Job_application_frontend && git pull origin master'
+          ssh -o StrictHostKeyChecking=no ec2-user@ec2-34-205-29-69.compute-1.amazonaws.com 'cd /home/job-application/Job_application_frontend && git pull origin master'
 
       - name: Install dependencies
         run: |
-          ssh -o StrictHostKeyChecking=no ec2-user@ec2-34-205-29-69.compute-1.amazonaws.com 'cd /home/Job-application/Job_application_frontend && sudo npm install -g http-server && sudo npm install -g pm2 && ln -s Job.html index.html'
+          ssh -o StrictHostKeyChecking=no ec2-user@ec2-34-205-29-69.compute-1.amazonaws.com 'cd /home/job-application/Job_application_frontend && sudo npm install -g http-server && sudo npm install -g pm2 && ln -s Job.html index.html'
 
       - name: Restart PM2 
         run: |
-          ssh -o StrictHostKeyChecking=no ec2-user@ec2-34-205-29-69.compute-1.amazonaws.com 'cd /home/Job-application/Job_application_frontend && pm2 start http-server --name jobz -- -p 8080'
+          ssh -o StrictHostKeyChecking=no ec2-user@ec2-34-205-29-69.compute-1.amazonaws.com 'cd /home/job-application/Job_application_frontend && pm2 start http-server --name jobz -- -p 8080'
